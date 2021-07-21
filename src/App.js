@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,7 +8,15 @@ import Login from "./components/login/login.js"
 import MainPage from "./components/mainPage/mainpage.js"
 import GamePage from "./components/gamepage/gamepage.js"
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { w3cwebsocket as W3WebSocket } from 'websocket';
 import './App.css';
+
+
+// Websocket URL
+// const URL = "ws:\\127.0.0.1:8000"
+const URL = "ws:\\agbackend.herokuapp.com/"
+// Establishes connection to websocket
+const client = new W3WebSocket(URL);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +28,14 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
 
+  useEffect(() => {
+    client.onopen = () => {
+      console.log("Websocket Client Connected")
+    }
+    client.onmessage = (message) => {
+      console.log("message was:", message.data)
+    }
+  }, [])
 
   const classes = useStyles();
 

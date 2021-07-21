@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Alert from '@material-ui/lab/Alert';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -74,7 +74,6 @@ export default function Login(props) {
     function handleLogin() {
         history.push("/main");
     }
-
 
     // function handleLogin() {
 

@@ -1,10 +1,15 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import PropTypes from "prop-types";
 import Chess from "chess.js"; // import Chess from  "chess.js"(default) if recieving an error about new Chess() not being a constructor
-
+import { w3cwebsocket as W3WebSocket } from 'websocket';
 import Chessboard from "chessboardjsx";
 
+const client = new W3WebSocket('ws:\\agbackend.herokuapp.com/');
+
 class HumanVsHuman extends Component {
+
+
+
     static propTypes = { children: PropTypes.func };
 
     state = {
@@ -20,6 +25,9 @@ class HumanVsHuman extends Component {
         // array of past game moves
         history: []
     };
+
+
+
 
     componentDidMount() {
         this.game = new Chess();
@@ -59,13 +67,18 @@ class HumanVsHuman extends Component {
         }));
     };
 
-
     sendMove = (move) => {
         // if move is illegal, don't send to chessboard
         if (move === null) return;
 
+
+
         // Add turn move to the JSON File
-        console.log("Move in sendMove:", move)
+        console.log("Sending\n");
+        console.log("Move in sendMove:", move);
+
+        // Sends move object to board as a JSON over websocket
+        client.send(JSON.stringify(move))
 
     };
 
