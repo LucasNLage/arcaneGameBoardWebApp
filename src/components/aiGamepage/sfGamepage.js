@@ -4,12 +4,12 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from "react-router-dom";
-import NavBar from "./navbar.js/navbar.js"
-import ChessBoard from './chessboard/chessBoard.js'
+import NavBar from "./../gamepage/navbar.js/navbar"
+import SFChessBoard from './sfChessboard'
 
-export default function GamePage(props) {
+export default function AIGamePage(props) {
 
+    // State used to keep track of game history
     const [gameHistory, setGameHistory] = useState();
 
     // General css styles used for the component
@@ -76,7 +76,7 @@ export default function GamePage(props) {
                     >
                         <Grid item>
                             <Box className={classes.gameBox}>
-                                <ChessBoard addHistory={addHistory} />
+                                <SFChessBoard />
                             </Box>
                         </Grid>
                     </Grid>

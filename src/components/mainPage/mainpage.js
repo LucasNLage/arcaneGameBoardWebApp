@@ -1,5 +1,4 @@
-import React, { useState } from "react"
-import Alert from '@material-ui/lab/Alert';
+import React from "react"
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -63,8 +62,12 @@ export default function MainPage(props) {
     }));
     const classes = useStyles();
 
-    function handleLogin() {
+    function handlePlayerGame() {
         history.push("/gamepage");
+    }
+
+    function handleAiGame() {
+        history.push("/aigamepage");
     }
 
 
@@ -89,13 +92,13 @@ export default function MainPage(props) {
                             alignItems="center">
                             <Box my={2}>
                                 <Button className={classes.button} variant="contained" color="primary" fullWidth
-                                    onClick={handleLogin}>
+                                    onClick={handlePlayerGame}>
                                     Player vs Player
                                 </Button>
                             </Box>
                             <Box my={2}>
                                 <Button className={classes.button} variant="contained" color="primary" fullWidth
-                                    onClick={handleLogin}>
+                                    onClick={handleAiGame}>
                                     Player vs. Computer (Coming soon)
                                 </Button>
                             </Box>
