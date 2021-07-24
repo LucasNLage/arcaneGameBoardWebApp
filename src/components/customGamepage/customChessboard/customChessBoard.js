@@ -6,8 +6,8 @@ import richie from "../../../assets/chessSprites/img_richie.jpg";
 import wei from "../../../assets/chessSprites/lei_wei_2014.jpeg";
 import { w3cwebsocket as W3WebSocket } from 'websocket';
 
-// const client = new W3WebSocket('wss:\\agbackend.herokuapp.com/');
-const client = new W3WebSocket('ws:\\192.168.1.75:8000');
+const client = new W3WebSocket('wss:\\agbackend.herokuapp.com/');
+// const client = new W3WebSocket('wss:\\192.168.1.75:8000');
 
 class CustomChessBoard extends Component {
 

@@ -71,7 +71,7 @@ export default function AIGamePage(props) {
                     <Grid
                         container
                         direction="column"
-                        justifyContent="center"
+                        // justifyContent="center"
                         alignItems="center"
                     >
                         <Grid item>
