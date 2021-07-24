@@ -6,6 +6,7 @@ import Login from "./components/login/login.js"
 import MainPage from "./components/mainPage/mainpage.js"
 import GamePage from "./components/gamepage/gamepage.js"
 import AIGamePage from "./components/aiGamepage/sfGamepage"
+import CustomGamePage from "./components/customGamepage/customGamepage"
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { w3cwebsocket as W3WebSocket } from 'websocket';
 import './App.css';
@@ -61,6 +62,11 @@ function App() {
           <Route path="/aigamepage">
             <div className={classes.root}>
               <AIGamePage />
+            </div>
+          </Route>
+          <Route path="/customgamepage">
+            <div className={classes.root}>
+              <CustomGamePage />
             </div>
           </Route>
         </Switch>

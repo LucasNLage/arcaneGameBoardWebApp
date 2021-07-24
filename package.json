@@ -19,6 +19,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.2",
     "redux": "^4.1.0",
+    "roughjs": "^4.4.1",
     "serve": "^12.0.0",
     "stockfish": "^11.0.0",
     "stockfish.js": "^10.0.2",

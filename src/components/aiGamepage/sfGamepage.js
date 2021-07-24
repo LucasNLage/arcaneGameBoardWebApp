@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import NavBar from "./../gamepage/navbar.js/navbar"
+import NavBar from "../navbar/navbar.js"
 import SFChessBoard from './sfChessboard'
 
 export default function AIGamePage(props) {

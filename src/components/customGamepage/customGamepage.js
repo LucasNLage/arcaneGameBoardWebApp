@@ -6,9 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
 import NavBar from "../navbar/navbar.js"
-import ChessBoard from './chessboard/chessBoard.js'
+import ChessBoard from './customChessboard/customChessBoard.js'
 
-export default function GamePage(props) {
+export default function CustomGamePage(props) {
 
     const [gameHistory, setGameHistory] = useState();
 
@@ -71,6 +71,7 @@ export default function GamePage(props) {
                     <Grid
                         container
                         direction="column"
+                        justifyContent="center"
                         alignItems="center"
                     >
                         <Grid item>

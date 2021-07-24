@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Chess from "chess.js"; // import Chess from  "chess.js"(default) if recieving an error about new Chess() not being a constructor
 import Chessboard from "chessboardjsx";
+import richie from "../../../assets/chessSprites/img_richie.jpg";
+import wei from "../../../assets/chessSprites/lei_wei_2014.jpeg";
 import { w3cwebsocket as W3WebSocket } from 'websocket';
 
 // const client = new W3WebSocket('wss:\\agbackend.herokuapp.com/');
 const client = new W3WebSocket('ws:\\192.168.1.75:8000');
 
-class HumanVsHuman extends Component {
-
-
+class CustomChessBoard extends Component {
 
     static propTypes = { children: PropTypes.func };
 
@@ -193,7 +193,7 @@ class HumanVsHuman extends Component {
 export default function WithMoveValidation() {
     return (
         <div>
-            <HumanVsHuman>
+            <CustomChessBoard>
                 {({
                     position,
                     onDrop,
@@ -206,7 +206,7 @@ export default function WithMoveValidation() {
                     onSquareRightClick
                 }) => (
                     <Chessboard
-                        id="humanVsHuman"
+                        id="CustomChessBoard"
                         width={320}
                         position={position}
                         onDrop={onDrop}
@@ -216,6 +216,28 @@ export default function WithMoveValidation() {
                             borderRadius: "5px",
                             boxShadow: `0 5px 15px rgba(0, 0, 0, 0.5)`
                         }}
+                        pieces={{
+                            wK: ({ squareWidth, isDragging }) => (
+                                <img
+                                    style={{
+                                        width: isDragging ? squareWidth * 1.75 : squareWidth,
+                                        height: isDragging ? squareWidth * 1.75 : squareWidth
+                                    }}
+                                    src={richie}
+                                    alt={"richie"}
+                                />
+                            ),
+                            bK: ({ squareWidth, isDragging }) => (
+                                <img
+                                    style={{
+                                        width: isDragging ? squareWidth * 1.75 : squareWidth,
+                                        height: isDragging ? squareWidth * 1.75 : squareWidth
+                                    }}
+                                    src={wei}
+                                    alt={"wei"}
+                                />
+                            )
+                        }}
                         squareStyles={squareStyles}
                         dropSquareStyle={dropSquareStyle}
                         onDragOverSquare={onDragOverSquare}
@@ -223,7 +245,7 @@ export default function WithMoveValidation() {
                         onSquareRightClick={onSquareRightClick}
                     />
                 )}
-            </HumanVsHuman>
+            </CustomChessBoard>
         </div>
     );
 }

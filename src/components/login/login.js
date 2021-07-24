@@ -51,7 +51,7 @@ export default function Login(props) {
             width: "100",
         },
         media: {
-            width: '70%',
+            width: '90%',
             alignItems: "center",
             margin: "auto"
         },
@@ -134,6 +134,9 @@ export default function Login(props) {
                             component="img"
                             image={logo}
                         />
+                        {/* Box is used to center items on card */}
+                        <Box my={8}>
+                        </Box>
                         {/* A box allows us to add spacing around our textfields, in this case margin spacing top and bottom */}
                         <Box my={2}>
                             <TextField id="email" label={"Username"} fullWidth

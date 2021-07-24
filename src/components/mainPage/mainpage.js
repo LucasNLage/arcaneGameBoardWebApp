@@ -43,7 +43,7 @@ export default function MainPage(props) {
             width: "100",
         },
         media: {
-            width: '70%',
+            width: '90%',
             alignItems: "center",
             margin: "auto"
         },
@@ -62,12 +62,18 @@ export default function MainPage(props) {
     }));
     const classes = useStyles();
 
+
+    // Handles page redirects
     function handlePlayerGame() {
         history.push("/gamepage");
     }
 
     function handleAiGame() {
         history.push("/aigamepage");
+    }
+
+    function handleCustomGame() {
+        history.push("/customgamepage");
     }
 
 
@@ -90,6 +96,9 @@ export default function MainPage(props) {
                             direction="column"
                             justify="center"
                             alignItems="center">
+                            {/* Box is used to center items on card */}
+                            <Box my={8}>
+                            </Box>
                             <Box my={2}>
                                 <Button className={classes.button} variant="contained" color="primary" fullWidth
                                     onClick={handlePlayerGame}>
@@ -99,7 +108,13 @@ export default function MainPage(props) {
                             <Box my={2}>
                                 <Button className={classes.button} variant="contained" color="primary" fullWidth
                                     onClick={handleAiGame}>
-                                    Player vs. Computer (Coming soon)
+                                    Player vs. Computer
+                                </Button>
+                            </Box>
+                            <Box my={2}>
+                                <Button className={classes.button} variant="contained" color="primary" fullWidth
+                                    onClick={handleCustomGame}>
+                                    Senior Design Showdown!
                                 </Button>
                             </Box>
                         </Grid>
