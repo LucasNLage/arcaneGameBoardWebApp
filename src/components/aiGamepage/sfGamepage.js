@@ -50,14 +50,6 @@ export default function AIGamePage(props) {
         marginBottom: 50
     };
 
-    // useEffect(() => {
-    //     console.log("gameHistory = ", gameHistory)
-    // }, [gameHistory])
-
-    function addHistory(history) {
-        console.log("gameHistory = ", gameHistory)
-        // setGameHistory(history)
-    }
 
     // A grid is almost like a box, where we are putting smaller components inside to be treated as one unit
     // This allows use to center the grid and all the components will be centered as well since its one unit

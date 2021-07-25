@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import PropTypes from "prop-types";
 import Chess from "chess.js"; // import Chess from  "chess.js"(default) if recieving an error about new Chess() not being a constructor
 import Chessboard from "chessboardjsx";
@@ -9,7 +9,6 @@ const client = new W3WebSocket('wss:\\agbackend.herokuapp.com/');
 // const client = new W3WebSocket('wss:\\192.168.1.75:8000');
 
 class PlayerVsPlayer extends Component {
-
 
     static propTypes = { children: PropTypes.func };
 
@@ -28,9 +27,30 @@ class PlayerVsPlayer extends Component {
     };
 
 
+    makeRecievedMove = (receivedMove) => {
+        this.game.move(receivedMove);
+        console.log("\n\nreceivedMove:", receivedMove);
+        console.log("\n\nthis.game:", this.game);
+
+        this.setState(({ history, pieceSquare }) => ({
+            fen: this.game.fen(),
+            history: this.game.history({ verbose: true }),
+            squareStyles: squareStyling({ pieceSquare, history })
+        }));
+
+    }
 
     componentDidMount() {
         this.game = new Chess();
+        // Checks if opposing player made a move and updates board
+        client.onmessage = (message) => {
+            console.log("message in Chessboard:", message.data)
+            let messageObj = JSON.parse(message.data)
+            if (messageObj && messageObj.san) {
+                this.makeRecievedMove(messageObj.san)
+            }
+
+        }
     }
 
     // keep clicked square style and remove hint squares
@@ -104,7 +124,7 @@ class PlayerVsPlayer extends Component {
             squareStyles: squareStyling({ pieceSquare, history })
         }));
 
-        // sends move to chessboard
+        // sends move to websocket
         this.sendMove(move);
         console.log("Sending\n");
         let history = this.game.history({ verbose: true })
