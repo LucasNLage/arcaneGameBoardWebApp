@@ -3,10 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createStore } from "redux"
+import { Provider } from "react-redux"
+import gameHistoryReducer from './redux/reducers/gameHistoryReducer';
+
+
+// Creates central redux store
+const store = createStore(gameHistoryReducer);
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

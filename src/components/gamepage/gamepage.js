@@ -7,6 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
 import NavBar from "../navbar/navbar.js"
 import ChessBoard from './chessboard/chessBoard.js'
+import Hidden from '@material-ui/core/Hidden';
+import GameHistory from "./gameHistory/gameHistory.js";
 
 export default function GamePage(props) {
 
@@ -28,7 +30,12 @@ export default function GamePage(props) {
         },
         historyBox: {
             textAlign: "center",
-            marginTop: theme.spacing(2)
+            marginTop: theme.spacing(2),
+            justifyContent: "center",
+            alignItems: 'center',
+        },
+        historyList: {
+            marginTop: theme.spacing(3),
         },
         gameBox: {
             height: '100vh',
@@ -66,7 +73,7 @@ export default function GamePage(props) {
             <Grid item xs={12} >
                 <NavBar />
             </Grid>
-            <Grid item xs={8} >
+            <Grid item xs={12} sm={8} >
                 <Paper className={classes.gamePaper} elevation={0} varient="outlined" square>
                     <Grid
                         container
@@ -81,15 +88,20 @@ export default function GamePage(props) {
                     </Grid>
                 </Paper>
             </Grid>
-            <Grid item xs={4}>
-                <Paper className={classes.historyPaper} elevation={0} varient="outlined" square>
-                    <Box className={classes.historyBox}>
-                        <Typography variant="h5" gutterBottom>
-                            Game History
-                        </Typography>
-                    </Box>
-                </Paper>
-            </Grid>
+            <Hidden xsDown>
+                <Grid item xs={4}>
+                    <Paper className={classes.historyPaper} elevation={0} varient="outlined" square>
+                        <Box className={classes.historyBox}>
+                            <Typography variant="h5" gutterBottom >
+                                Game History
+                            </Typography>
+                        </Box>
+                        <Box className={classes.historyList}>
+                            <GameHistory />
+                        </Box>
+                    </Paper>
+                </Grid>
+            </Hidden>
         </Grid >
     )
 }

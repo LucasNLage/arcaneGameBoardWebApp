@@ -9,6 +9,7 @@ import AIGamePage from "./components/aiGamepage/sfGamepage"
 import CustomGamePage from "./components/customGamepage/customGamepage"
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { w3cwebsocket as W3WebSocket } from 'websocket';
+
 import './App.css';
 
 
@@ -16,13 +17,15 @@ import './App.css';
 // const URL = "ws:\\127.0.0.1:8000"
 const URL = "wss:\\agbackend.herokuapp.com/"
 // const URL = "wss:\\192.168.1.75:8000"
+
 // Establishes connection to websocket
 const client = new W3WebSocket(URL);
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    height: "100vh"
+    height: "100vh",
+    overflowY: "hidden"
   },
 }));
 

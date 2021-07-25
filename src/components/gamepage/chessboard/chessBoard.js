@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import Chess from "chess.js"; // import Chess from  "chess.js"(default) if recieving an error about new Chess() not being a constructor
 import Chessboard from "chessboardjsx";
 import { w3cwebsocket as W3WebSocket } from 'websocket';
+import { connect } from "react-redux";
 
 const client = new W3WebSocket('wss:\\agbackend.herokuapp.com/');
 // const client = new W3WebSocket('wss:\\192.168.1.75:8000');
 
-class HumanVsHuman extends Component {
-
+class PlayerVsPlayer extends Component {
 
 
     static propTypes = { children: PropTypes.func };
@@ -26,7 +26,6 @@ class HumanVsHuman extends Component {
         // array of past game moves
         history: []
     };
-
 
 
 
@@ -82,11 +81,10 @@ class HumanVsHuman extends Component {
 
     setHistory = (history) => {
         // if move is illegal, don't send to chessboard
+        console.log("history in setHistory:", history)
         if (history === null) return;
 
-        console.log("history in setHistory:", history)
-        console.log("\n\nhistory in setHistory:", this.props)
-        this.props.addHistory(history)
+        this.props.historyPost(history)
 
     };
 
@@ -108,10 +106,10 @@ class HumanVsHuman extends Component {
 
         // sends move to chessboard
         this.sendMove(move);
-
+        console.log("Sending\n");
         let history = this.game.history({ verbose: true })
 
-        // this.setHistory(history);
+        this.setHistory(history);
     };
 
 
@@ -190,10 +188,11 @@ class HumanVsHuman extends Component {
     }
 }
 
-export default function WithMoveValidation() {
+export function WithMoveValidation(props) {
+    console.log("this.props validations:", props)
     return (
         <div>
-            <HumanVsHuman>
+            <PlayerVsPlayer historyPost={props.HistoryPost}>
                 {({
                     position,
                     onDrop,
@@ -206,7 +205,7 @@ export default function WithMoveValidation() {
                     onSquareRightClick
                 }) => (
                     <Chessboard
-                        id="humanVsHuman"
+                        id="PlayerVsPlayer"
                         width={320}
                         position={position}
                         onDrop={onDrop}
@@ -223,7 +222,7 @@ export default function WithMoveValidation() {
                         onSquareRightClick={onSquareRightClick}
                     />
                 )}
-            </HumanVsHuman>
+            </PlayerVsPlayer>
         </div>
     );
 }
@@ -248,3 +247,20 @@ const squareStyling = ({ pieceSquare, history }) => {
 };
 
 
+// Mapping the redux state to our props, so our component can access the redeux
+// const mapStateToProps = (state, ownProps) => {
+//     return {
+//         props: ownProps
+//     }
+// }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        HistoryPost: (history) => { dispatch({ type: "UPDATE_HISTORY", history: history }) }
+    }
+}
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(WithMoveValidation)
