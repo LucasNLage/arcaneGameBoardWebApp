@@ -5,8 +5,8 @@ import Chessboard from "chessboardjsx";
 import { w3cwebsocket as W3WebSocket } from 'websocket';
 import { connect } from "react-redux";
 
-// const client = new W3WebSocket('wss:\\agbackend.herokuapp.com/');
-const client = new W3WebSocket('ws:\\192.168.1.75:8000');
+const client = new W3WebSocket('wss:\\agbackend.herokuapp.com/');
+// const client = new W3WebSocket('ws:\\192.168.1.75:8000');
 
 class PlayerVsPlayer extends Component {
 
@@ -50,6 +50,9 @@ class PlayerVsPlayer extends Component {
                 this.makeRecievedMove(messageObj.san)
             }
 
+            let history = this.game.history({ verbose: true })
+
+            this.setHistory(history);
         }
     }
 

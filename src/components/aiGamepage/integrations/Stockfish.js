@@ -4,8 +4,8 @@ import Chess from "chess.js"; // import Chess from  "chess.js"(default) if recie
 import { w3cwebsocket as W3WebSocket } from 'websocket';
 import { connect } from "react-redux"
 
-// const client = new W3WebSocket('wss:\\agbackend.herokuapp.com/');
-const client = new W3WebSocket('ws:\\192.168.1.75:8000');
+const client = new W3WebSocket('wss:\\agbackend.herokuapp.com/');
+// const client = new W3WebSocket('ws:\\192.168.1.75:8000');
 
 const STOCKFISH = window.STOCKFISH;
 const game = new Chess();

@@ -15,8 +15,8 @@ import './App.css';
 
 // Websocket URL
 // const URL = "ws:\\127.0.0.1:8000"
-// const URL = "wss:\\agbackend.herokuapp.com/"
-const URL = "ws:\\192.168.1.75:8000"
+const URL = "wss:\\agbackend.herokuapp.com/"
+// const URL = "ws:\\192.168.1.75:8000"
 
 // Establishes connection to websocket
 const client = new W3WebSocket(URL);
