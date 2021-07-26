@@ -7,8 +7,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useHistory } from "react-router-dom";
 import NavBar from "../navbar/navbar.js"
 import ChessBoard from './customChessboard/customChessBoard.js'
+import Hidden from '@material-ui/core/Hidden';
+import GameHistory from "./customGameHistory/customGameHistory.js";
+import { connect } from "react-redux"
 
-export default function CustomGamePage(props) {
+export function GamePage(props) {
 
     const [gameHistory, setGameHistory] = useState();
 
@@ -28,7 +31,12 @@ export default function CustomGamePage(props) {
         },
         historyBox: {
             textAlign: "center",
-            marginTop: theme.spacing(2)
+            marginTop: theme.spacing(2),
+            justifyContent: "center",
+            alignItems: 'center',
+        },
+        historyList: {
+            marginTop: theme.spacing(3),
         },
         gameBox: {
             height: '100vh',
@@ -50,47 +58,61 @@ export default function CustomGamePage(props) {
         marginBottom: 50
     };
 
-    // useEffect(() => {
-    //     console.log("gameHistory = ", gameHistory)
-    // }, [gameHistory])
-
-    function addHistory(history) {
-        console.log("gameHistory = ", gameHistory)
-        // setGameHistory(history)
-    }
-
     // A grid is almost like a box, where we are putting smaller components inside to be treated as one unit
     // This allows use to center the grid and all the components will be centered as well since its one unit
     return (
         <Grid container >
             <Grid item xs={12} >
-                <NavBar />
+                <NavBar clearHistory={props.HistoryPost} />
             </Grid>
-            <Grid item xs={8} >
+            <Grid item xs={12} sm={8} >
                 <Paper className={classes.gamePaper} elevation={0} varient="outlined" square>
                     <Grid
                         container
                         direction="column"
-                        justifyContent="center"
                         alignItems="center"
                     >
                         <Grid item>
                             <Box className={classes.gameBox}>
-                                <ChessBoard addHistory={addHistory} />
+                                <ChessBoard />
                             </Box>
                         </Grid>
                     </Grid>
                 </Paper>
             </Grid>
-            <Grid item xs={4}>
-                <Paper className={classes.historyPaper} elevation={0} varient="outlined" square>
-                    <Box className={classes.historyBox}>
-                        <Typography variant="h5" gutterBottom>
-                            Game History
-                        </Typography>
-                    </Box>
-                </Paper>
-            </Grid>
+            <Hidden xsDown>
+                <Grid item xs={4}>
+                    <Paper className={classes.historyPaper} elevation={0} varient="outlined" square>
+                        <Box className={classes.historyBox}>
+                            <Typography variant="h5" gutterBottom >
+                                Game History
+                            </Typography>
+                        </Box>
+                        <Box className={classes.historyList}>
+                            <GameHistory />
+                        </Box>
+                    </Paper>
+                </Grid>
+            </Hidden>
         </Grid >
     )
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        HistoryPost: (history) => { dispatch({ type: "CLEAR_HISTORY", history: history }) }
+    }
+}
+
+
+const mapStateToProps = (state) => {
+    return {
+        history: state.history
+    }
+}
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(GamePage)
+

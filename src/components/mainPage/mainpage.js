@@ -108,7 +108,7 @@ export default function MainPage(props) {
                             <Box my={2}>
                                 <Button className={classes.button} variant="contained" color="primary" fullWidth
                                     onClick={handleAiGame}>
-                                    Player vs. Computer
+                                    Player vs. Stockfish
                                 </Button>
                             </Box>
                             <Box my={2}>
