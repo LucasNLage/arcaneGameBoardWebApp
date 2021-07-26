@@ -26,9 +26,10 @@ function ListItemLink(props) {
     return <ListItem button component="a" {...props} />;
 }
 
-export function GameHistory(props) {
+export function AIGameHistory(props) {
     const classes = useStyles();
 
+    console.log("props in ai gamehistory:", props)
 
     function renderMoves(history) {
 
@@ -69,5 +70,5 @@ const mapStateToProps = (state) => {
 export default connect(
     mapStateToProps,
     null
-)(GameHistory)
+)(AIGameHistory)
 

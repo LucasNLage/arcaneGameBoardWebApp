@@ -3,28 +3,34 @@ import Chessboard from "chessboardjsx";
 
 import StockFish from "./integrations/Stockfish.js";
 
-class Demo extends Component {
-    render() {
-        return (
-            <div style={boardsContainer}>
-                <StockFish>
-                    {({ position, onDrop }) => (
-                        <Chessboard
-                            id="stockfish"
-                            position={position}
-                            width={320}
-                            onDrop={onDrop}
-                            boardStyle={boardStyle}
-                            orientation="black"
-                        />
-                    )}
-                </StockFish>
-            </div>
-        );
-    }
+export default function Demo(props) {
+    console.log("props", props)
+    return (
+        <div style={boardsContainer}>
+            <StockFish updateHistory={props.updateHistory()}>
+                {({ position, onDrop }) => (
+                    <Chessboard
+                        id="stockfish"
+                        position={position}
+                        width={320}
+                        onDrop={onDrop}
+                        boardStyle={boardStyle}
+                        orientation="black"
+                    />
+                )}
+            </StockFish>
+        </div>
+    );
 }
 
-export default Demo;
+// class Demo extends Component {
+
+//     render() {
+
+//     }
+// }
+
+// export default Demo;
 
 const boardsContainer = {
     display: "flex",

@@ -2,9 +2,10 @@ import { Component } from "react";
 import PropTypes from "prop-types";
 import Chess from "chess.js"; // import Chess from  "chess.js"(default) if recieving an error about new Chess not being a constructor
 import { w3cwebsocket as W3WebSocket } from 'websocket';
+import { connect } from "react-redux"
 
-const client = new W3WebSocket('wss:\\agbackend.herokuapp.com/');
-// const client = new W3WebSocket('wss:\\192.168.1.75:8000');
+// const client = new W3WebSocket('wss:\\agbackend.herokuapp.com/');
+const client = new W3WebSocket('ws:\\192.168.1.75:8000');
 
 const STOCKFISH = window.STOCKFISH;
 const game = new Chess();
@@ -13,6 +14,7 @@ class Stockfish extends Component {
     static propTypes = { children: PropTypes.func };
 
     state = { fen: "start" };
+
 
     componentDidMount() {
         this.setState({ fen: game.fen() });
@@ -132,16 +134,10 @@ class Stockfish extends Component {
             let moves = "";
             let history = game.history({ verbose: true });
 
-            console.log("\nMoves called")
-
             for (let i = 0; i < history.length; ++i) {
                 let move = history[i];
                 moves +=
                     " " + move.from + move.to + (move.promotion ? move.promotion : "");
-
-                if (i === history.length - 1 || i === history.length - 2) {
-                    console.log("\ni:", i, "\nmove:", move)
-                }
             }
 
             return moves;
@@ -273,9 +269,31 @@ class Stockfish extends Component {
     };
 
     render() {
+
+
+        let history = game.history({ verbose: true });
+        // Checks if HistoryPost is passed down and updates history in Redux
+        if (this.props && this.props.HistoryPost)
+            this.props.HistoryPost(history)
+
+        if (history.length > 0) {
+            console.log("\nSending move from stockfish to websocket:", history[history.length - 1])
+            client.send(JSON.stringify({ hello: "hello" }))
+        }
+
         const { fen } = this.state;
         return this.props.children({ position: fen, onDrop: this.onDrop });
     }
 }
 
-export default Stockfish;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        HistoryPost: (history) => { dispatch({ type: "UPDATE_HISTORY", history: history }) }
+    }
+}
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(Stockfish)
+
