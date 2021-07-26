@@ -209,7 +209,6 @@ class PlayerVsPlayer extends Component {
 }
 
 export function WithMoveValidation(props) {
-    console.log("this.props validations:", props)
     return (
         <div>
             <PlayerVsPlayer historyPost={props.HistoryPost}>

@@ -9,8 +9,9 @@ import NavBar from "../navbar/navbar.js"
 import ChessBoard from './chessboard/chessBoard.js'
 import Hidden from '@material-ui/core/Hidden';
 import GameHistory from "./gameHistory/gameHistory.js";
+import { connect } from "react-redux"
 
-export default function GamePage(props) {
+export function GamePage(props) {
 
     const [gameHistory, setGameHistory] = useState();
 
@@ -57,21 +58,12 @@ export default function GamePage(props) {
         marginBottom: 50
     };
 
-    // useEffect(() => {
-    //     console.log("gameHistory = ", gameHistory)
-    // }, [gameHistory])
-
-    function addHistory(history) {
-        console.log("gameHistory = ", gameHistory)
-        // setGameHistory(history)
-    }
-
     // A grid is almost like a box, where we are putting smaller components inside to be treated as one unit
     // This allows use to center the grid and all the components will be centered as well since its one unit
     return (
         <Grid container >
             <Grid item xs={12} >
-                <NavBar />
+                <NavBar clearHistory={props.HistoryPost} />
             </Grid>
             <Grid item xs={12} sm={8} >
                 <Paper className={classes.gamePaper} elevation={0} varient="outlined" square>
@@ -82,7 +74,7 @@ export default function GamePage(props) {
                     >
                         <Grid item>
                             <Box className={classes.gameBox}>
-                                <ChessBoard addHistory={addHistory} />
+                                <ChessBoard />
                             </Box>
                         </Grid>
                     </Grid>
@@ -105,3 +97,22 @@ export default function GamePage(props) {
         </Grid >
     )
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        HistoryPost: (history) => { dispatch({ type: "CLEAR_HISTORY", history: history }) }
+    }
+}
+
+
+const mapStateToProps = (state) => {
+    return {
+        history: state.history
+    }
+}
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(GamePage)
+

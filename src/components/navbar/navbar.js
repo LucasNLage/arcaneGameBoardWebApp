@@ -21,14 +21,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function NavBar() {
+export default function NavBar(props) {
     const classes = useStyles();
 
     return (
         //Find correct way to set app bar color using themes
         <AppBar className={classes.root} position="static" color="primary" >
             <Toolbar >
-                <Link to='/main'>
+                <Link to='/main' onClick={props.clearHistory}>
                     <img src={BackToMenu} alt={"Back to Menu"} />
                 </Link>
             </Toolbar>

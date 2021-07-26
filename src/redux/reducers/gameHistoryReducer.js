@@ -8,6 +8,11 @@ const gameHistoryReducer = (state = initState, action) => {
             history: action.history
         };
     }
+    if (action.type === "CLEAR_HISTORY") {
+        return {
+            history: []
+        };
+    }
     return state;
 }
 
